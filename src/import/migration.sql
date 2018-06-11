@@ -1,27 +1,20 @@
 use adlister_db;
 
 
-DROP TABLE IF EXISTS user;
 DROP TABLE IF EXISTS ads;
+DROP TABLE IF EXISTS user;
 
 
-CREATE TABLE role(
-  id INT unsigned NOT NULL AUTO_INCREMENT,
-  user_role VACHAR(50)
-  PRIMARY KEY (id)
-)
 
 CREATE TABLE user(
   id INT unsigned NOT NULL AUTO_INCREMENT,
-  user_role VARCHAR UNSIGNED NOT NULL,
+  role INT NOT NULL,
   username VARCHAR(240) NOT NULL,
-  email VARCHAR(50),
-  password VARCHAR(20),
-  activate BIT(1),
-  deactivate BIT(1)
-  PRIMARY KEY (id),
-  FOREIGN KEY (user_role) REFERENCES role(id)
-    ON DELETE CASCADE
+  email VARCHAR(50) NOT NULL,
+  password VARCHAR(20) NOT NULL,
+  activate BIT(1) NOT NULL ,
+  deactivate BIT(1) NOT NULL,
+  PRIMARY KEY (id)
 
 );
 
