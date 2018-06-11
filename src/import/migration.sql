@@ -35,6 +35,8 @@ CREATE TABLE ads(
   FOREIGN KEY (user_id) REFERENCES user(id)
     ON DELETE CASCADE
 
+
+
 );
 
 
