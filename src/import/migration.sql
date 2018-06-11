@@ -12,8 +12,8 @@ CREATE TABLE user(
   username VARCHAR(240) NOT NULL,
   email VARCHAR(50) NOT NULL,
   password VARCHAR(20) NOT NULL,
-  activate BIT(1) NOT NULL ,
-  deactivate BIT(1) NOT NULL,
+  activate TINYINT(1) NOT NULL ,
+  deactivate TINYINT(1) NOT NULL,
   PRIMARY KEY (id)
 
 );
@@ -28,8 +28,11 @@ CREATE TABLE ads(
   FOREIGN KEY (user_id) REFERENCES user(id)
     ON DELETE CASCADE
 
-
-
 );
+
+
+
+
+
 
 
