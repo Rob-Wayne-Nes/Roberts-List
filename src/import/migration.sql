@@ -11,7 +11,7 @@ CREATE TABLE user(
   role INT NOT NULL,
   username VARCHAR(240) NOT NULL,
   email VARCHAR(50) NOT NULL,
-  password VARCHAR(20) NOT NULL,
+  password VARCHAR(120) NOT NULL,
   activate BIT(1) NOT NULL ,
   deactivate BIT(1) NOT NULL,
   PRIMARY KEY (id)
@@ -27,9 +27,8 @@ CREATE TABLE ads(
   PRIMARY KEY (id),
   FOREIGN KEY (user_id) REFERENCES user(id)
     ON DELETE CASCADE
-
-
-
 );
+
+
 
 
