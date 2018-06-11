@@ -39,6 +39,7 @@ public class MySQLAdsDao implements Ads {
         }
     }
 
+
     @Override
     public Long insert(Ad ad) {
         try {
