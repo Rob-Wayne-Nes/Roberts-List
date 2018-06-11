@@ -27,9 +27,8 @@ CREATE TABLE ads(
   PRIMARY KEY (id),
   FOREIGN KEY (user_id) REFERENCES user(id)
     ON DELETE CASCADE
-
-
-
 );
+
+
 
 
