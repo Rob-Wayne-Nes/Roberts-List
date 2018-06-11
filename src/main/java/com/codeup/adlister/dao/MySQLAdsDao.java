@@ -1,6 +1,6 @@
 package com.codeup.adlister.dao;
 
-import com.codeup.adlister.controllers.Config;
+//import com.codeup.adlister.controllers.Config;
 import com.codeup.adlister.models.Ad;
 import com.mysql.cj.jdbc.Driver;
 
@@ -31,7 +31,7 @@ public class MySQLAdsDao implements Ads {
     public List<Ad> all() {
         PreparedStatement stmt = null;
         try {
-            stmt = connection.prepareStatement("SELECT * FROM ads");
+            stmt = connection.prepareStatement("SELECT * FROM ads WHERE status!=0";
             ResultSet rs = stmt.executeQuery();
             return createAdsFromResults(rs);
         } catch (SQLException e) {
@@ -74,4 +74,34 @@ public class MySQLAdsDao implements Ads {
         }
         return ads;
     }
+
+    private Ad findbyId(String id) {
+        String query = "SELECT * FROM ads WHERE id = ?";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(query);
+            stmt.setString(1, id);
+            return extractAd(stmt.executeQuery());
+        } catch (SQLException e) {
+            throw new RuntimeException("Error finding a ad by id", e);
+        }
+    }
+
+
+    private void deactivateAd(String id){
+        String query="UPDATE ads SET status=? WHERE ID=id";
+        try{
+            PreparedStatement stmt=connection.prepareStatement(query);
+            stmt.setInt(1,0);
+            int set=stmt.executeUpdate();
+
+
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+
+        }
+
+    }
+
+
+
 }
