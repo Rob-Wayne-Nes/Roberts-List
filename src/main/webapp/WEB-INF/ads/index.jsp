@@ -7,8 +7,8 @@
     </jsp:include>
 </head>
 <body>
+<jsp:include page="/WEB-INF/partials/preloader.jsp"/>
 <jsp:include page="/WEB-INF/partials/navbar.jsp" />
-
 
 <div class="container-fluid">
 
