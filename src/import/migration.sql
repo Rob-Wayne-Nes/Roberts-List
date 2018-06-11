@@ -11,7 +11,8 @@ CREATE TABLE user(
   role INT NOT NULL,
   username VARCHAR(240) NOT NULL,
   email VARCHAR(50) NOT NULL,
-  password VARCHAR(20) NOT NULL,
+
+  password VARCHAR(120) NOT NULL,
   activate TINYINT(1) NOT NULL ,
   deactivate TINYINT(1) NOT NULL,
   PRIMARY KEY (id)

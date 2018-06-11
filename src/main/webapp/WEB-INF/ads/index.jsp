@@ -9,16 +9,30 @@
 <body>
 <jsp:include page="/WEB-INF/partials/navbar.jsp" />
 
-<div class="container">
-    <h1>Here Are all the ads!</h1>
 
-    <c:forEach var="ad" items="${ads}">
-        <div class="col-md-6">
-            <h2>${ad.title}</h2>
-            <p>${ad.description}</p>
-        </div>
-    </c:forEach>
+<div class="container-fluid">
+
+    <h1 class="text-center mt-5" style="font-family: 'BioRhyme Expanded', serif;">Welcome to Nestor's List!</h1>
+    <div class="row mt-5">
+        <c:forEach var="ad" items="${ads}">
+            <div class="mb-2 col-sm-4 text-center">
+                <div class="card" style="background-color: aqua">
+                    <div class="card-body">
+                        <h3 class="card-title " style="font-family: 'Jua', sans-serif" >${ad.title}</h3>
+                        <p class="card-text head">${ad.description}</p>
+                        <p class="card-text head">${ad.category}</p>
+                        <form action="delete" method="post">
+                            <button name="deleteById" class="btn btn-danger" value="${ad.id}">delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </c:forEach>
+    </div>
+
+
+
 </div>
-
+<%@ include file="/WEB-INF/partials/script.jsp"%>
 </body>
 </html>
