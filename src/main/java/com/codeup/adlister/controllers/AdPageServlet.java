@@ -19,30 +19,47 @@ public class AdPageServlet extends HttpServlet {
         User user = (User) request.getSession().getAttribute("user");
         String userId = null;
         int isAdmin;
-
-        try {
-            userId = Long.toString(user.getId());
-        } catch (NullPointerException e) {
-            userId = null;
-        }
-        isAdmin = user.getRole();
-
-        System.out.println(isAdmin);
-
         String adId = request.getParameter("id");
         Ads ads = DaoFactory.getAdsDao();
-
         List<Ad> ad = DaoFactory.getAdsDao().GetAdById(adId);
         String adUserId = Long.toString(ad.get(0).getUserId());
 
+        if (user != null){
+            userId = Long.toString(user.getId());
+            isAdmin = user.getRole();
 
-        if (!userId.equals(null) && userId.equals(adUserId)) {
-            System.out.println("this worked");
-
-
+        } else {
+            userId = null;
+            isAdmin = 0;
         }
-        if (isAdmin == 1){
-            System.out.println("is admin");
+
+        if (user != null && userId.equals(adUserId)) {
+            //****this is where to put the wiring for the users
+        }
+
+        if (user != null && isAdmin == 1){
+            //****this is where to put the wiring for the admin
+        }
+
+        request.getRequestDispatcher("/WEB-INF/ads/page.jsp").forward(request, response);
+
+
+    }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        String edit = request.getParameter("edit");
+        String delete = request.getParameter("delete");
+        String ban = request.getParameter("ban");
+
+        if (edit.equals("1")){
+            //where to wire up the edit button
+        }
+        if (delete.equals("1")){
+            //where to wire up the delete button
+        }
+        if (ban.equals("1")){
+            //where to wire up the ban button
         }
     }
 }
