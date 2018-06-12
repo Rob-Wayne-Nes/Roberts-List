@@ -18,7 +18,6 @@
                 <option>discounted</option>
             </select>
         </div>
-
         <div class="form-group">
             <label for="title">Title</label>
             <input id="title" name="title" class="form-control" type="text">
