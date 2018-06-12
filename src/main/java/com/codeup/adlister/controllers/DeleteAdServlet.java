@@ -13,8 +13,15 @@ public class DeleteAdServlet extends HttpServlet{
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response){
         String deleteById= request.getParameter("deleteById");
-//        DaoFactory.getAdsDao()
-
+        System.out.println("this is the id "+deleteById);
+        DaoFactory.getAdsDao().deactivateAd(Integer.parseInt(deleteById));
+        request.setAttribute("ads", DaoFactory.getAdsDao().all());
+        try {
+            request.getRequestDispatcher("/WEB-INF/ads/index.jsp").forward(request, response);
+            response.sendRedirect("/ads");
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
 
     }
 
