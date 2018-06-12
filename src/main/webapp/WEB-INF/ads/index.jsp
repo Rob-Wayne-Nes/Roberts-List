@@ -15,6 +15,7 @@
     <h1 class="text-center mt-5" style="font-family: 'BioRhyme Expanded', serif;">Welcome to Nestor's List!</h1>
     <div class="row mt-5">
         <c:forEach var="ad" items="${ads}">
+            <a href="/ads/page?id=${ad.id}">
             <div class="mb-2 col-sm-4 text-center">
                 <div class="card" style="background-color: aqua">
                     <div class="card-body">
@@ -28,6 +29,7 @@
                     </div>
                 </div>
             </div>
+            </a>
         </c:forEach>
     </div>
 
