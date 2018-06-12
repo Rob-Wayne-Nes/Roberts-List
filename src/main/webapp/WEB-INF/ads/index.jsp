@@ -15,7 +15,12 @@
 
     <div class="row mt-5">
         <c:forEach var="ad" items="${ads}">
+
             <div class="mb-2 col-sm-2 text-center">
+
+            <a href="/ads/page?id=${ad.id}">
+            
+
                 <div class="card" style="background-color: aqua">
                     <div class="card-body">
                         <h3 class="card-title " style="font-family: 'Jua', sans-serif" >${ad.title}</h3>
@@ -28,6 +33,7 @@
                     </div>
                 </div>
             </div>
+            </a>
         </c:forEach>
     </div>
 

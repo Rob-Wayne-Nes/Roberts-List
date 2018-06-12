@@ -1,14 +1,9 @@
 package com.codeup.adlister.dao;
 
 
-import com.codeup.adlister.dao.Config;
-
 import com.codeup.adlister.models.Ad;
 import com.mysql.cj.jdbc.Driver;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +28,10 @@ public class MySQLAdsDao implements Ads {
     public List<Ad> all() {
         PreparedStatement stmt = null;
         try {
-            stmt = connection.prepareStatement("SELECT * FROM ads");
+
+
+            stmt = connection.prepareStatement("SELECT * FROM ads WHERE status!=0");
+
             ResultSet rs = stmt.executeQuery();
             return createAdsFromResults(rs);
         } catch (SQLException e) {
@@ -116,6 +114,21 @@ public class MySQLAdsDao implements Ads {
         } catch (SQLException e) {
             throw new RuntimeException("Error retrieving all ads.", e);
         }
+    }
+
+    public List<Ad> GetAdById(String id){
+        String query = "SELECT * FROM ads WHERE id = ?";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(query);
+            stmt.setString(1, id);
+           ResultSet rs =stmt.executeQuery();
+           List<Ad> output =  createAdsFromResults(rs);
+           return output;
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error finding a ad by id", e);
+        }
+
     }
 
 

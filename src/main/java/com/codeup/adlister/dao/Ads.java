@@ -13,4 +13,8 @@ public interface Ads {
      void deactivateAd(int id);
 //     /return ads created by a specific user by userId
     List<Ad> userAdds(int id);
+
+    //returns an individual ad based on the ad id
+    List<Ad> GetAdById(String Id);
+
 }
