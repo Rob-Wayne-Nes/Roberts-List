@@ -18,51 +18,48 @@ public class AdPageServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user = (User) request.getSession().getAttribute("user");
         String userId = null;
+        int isAdmin;
+        String adId = request.getParameter("id");
+        Ads ads = DaoFactory.getAdsDao();
+        List<Ad> ad = DaoFactory.getAdsDao().GetAdById(adId);
+        String adUserId = Long.toString(ad.get(0).getUserId());
 
-        try {
+        if (user != null){
             userId = Long.toString(user.getId());
-        } catch (NullPointerException e){
-             userId = null;
+            isAdmin = user.getRole();
+
+        } else {
+            userId = null;
+            isAdmin = 0;
         }
 
-        String adId = request.getParameter("id");
-         Ads ads = DaoFactory.getAdsDao();
+        if (user != null && userId.equals(adUserId)) {
+            //****this is where to put the wiring for the users
+        }
 
-        List<Ad> ad =DaoFactory.getAdsDao().GetAdById(adId);
-           String adUserId = Long.toString(ad.get(0).getUserId());
+        if (user != null && isAdmin == 1){
+            //****this is where to put the wiring for the admin
+        }
 
-
-           if (!userId.equals(null) && userId.equals(adUserId)){
-               System.out.println("this worked");
-           }
-
-
-
-//        if ()
-
-      //call to the ad dao and see if the user id on the ad equals the user id on the user
-      //if it does give them the option to edit or delete.
-
+        request.getRequestDispatcher("/WEB-INF/ads/page.jsp").forward(request, response);
 
 
     }
-//        if (request.getSession().getAttribute("user") == null) {
-//            response.sendRedirect("/login");
-//            return;
-//        }
-//        request.getRequestDispatcher("/WEB-INF/ads/create.jsp")
-//                .forward(request, response);
-//    }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        User user = (User) request.getSession().getAttribute("user");
-        Ad ad = new Ad(
-                user.getId(),
-                request.getParameter("title"),
-                request.getParameter("description"),
-                request.getParameter("category")
-        );
-        DaoFactory.getAdsDao().insert(ad);
-        response.sendRedirect("/ads");
+
+        String edit = request.getParameter("edit");
+        String delete = request.getParameter("delete");
+        String ban = request.getParameter("ban");
+
+        if (edit.equals("1")){
+            //where to wire up the edit button
+        }
+        if (delete.equals("1")){
+            //where to wire up the delete button
+        }
+        if (ban.equals("1")){
+            //where to wire up the ban button
+        }
     }
 }
