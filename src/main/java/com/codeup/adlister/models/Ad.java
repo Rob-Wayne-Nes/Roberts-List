@@ -6,20 +6,32 @@ public class Ad {
     private String title;
     private String description;
     private String category;
+    private int status;
 
-    public Ad(long id, long userId, String title, String description, String category) {
+    public Ad(long id, long userId, String title, String description, String category, int status) {
         this.id = id;
         this.userId = userId;
         this.title = title;
         this.description = description;
         this.category= category;
+        this.status = 1;
     }
 
-    public Ad(long userId, String title, String description,String category) {
+    public Ad(long userId, String title, String description,String category,int status) {
         this.userId = userId;
         this.title = title;
         this.description = description;
         this.category=category;
+        this.status = 1;
+    }
+
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public String getCategory() {
