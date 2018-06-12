@@ -119,6 +119,7 @@ public class MySQLAdsDao implements Ads {
     public List<Ad> GetAdById(String id){
         String query = "SELECT * FROM ads WHERE id = ?";
         try {
+            System.out.println("bet by id" + id);
             PreparedStatement stmt = connection.prepareStatement(query);
             stmt.setString(1, id);
            ResultSet rs =stmt.executeQuery();

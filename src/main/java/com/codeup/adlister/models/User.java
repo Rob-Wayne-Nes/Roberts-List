@@ -59,4 +59,8 @@ public class User {
     public int getRole() {
         return role;
     }
+
+    public void banUser(String id){
+
+    }
 }
