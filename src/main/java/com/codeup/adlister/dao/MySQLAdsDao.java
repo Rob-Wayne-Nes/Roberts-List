@@ -33,7 +33,7 @@ public class MySQLAdsDao implements Ads {
     public List<Ad> all() {
         PreparedStatement stmt = null;
         try {
-            stmt = connection.prepareStatement("SELECT * FROM ads WHERE status!=0";
+            stmt = connection.prepareStatement("SELECT * FROM ads WHERE status=1");
             ResultSet rs = stmt.executeQuery();
             return createAdsFromResults(rs);
         } catch (SQLException e) {
@@ -45,12 +45,13 @@ public class MySQLAdsDao implements Ads {
     @Override
     public Long insert(Ad ad) {
         try {
-            String insertQuery = "INSERT INTO ads(user_id, title, description,category) VALUES (?,?,?,?)";
+            String insertQuery = "INSERT INTO ads(user_id, title, description,category,status) VALUES (?,?,?,?,?)";
             PreparedStatement stmt = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
             stmt.setLong(1, ad.getUserId());
             stmt.setString(2, ad.getTitle());
             stmt.setString(3, ad.getDescription());
             stmt.setString(4,ad.getCategory());
+            stmt.setInt(5,ad.getStatus());
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             rs.next();
@@ -60,13 +61,18 @@ public class MySQLAdsDao implements Ads {
         }
     }
 
+
+
+
     private Ad extractAd(ResultSet rs) throws SQLException {
         return new Ad(
             rs.getLong("id"),
             rs.getLong("user_id"),
             rs.getString("title"),
             rs.getString("description"),
-            rs.getString("category")
+            rs.getString("category"),
+            rs.getInt("status")
+
         );
     }
 
@@ -90,17 +96,16 @@ public class MySQLAdsDao implements Ads {
     }
 
 
-    private void deactivateAd(String id){
-        String query="UPDATE ads SET status=? WHERE ID=id";
+    @Override
+   public void deactivateAd(int ide){
+        String query="UPDATE ads SET status=? WHERE id=?";
         try{
             PreparedStatement stmt=connection.prepareStatement(query);
             stmt.setInt(1,0);
+            stmt.setInt(2,ide);
             int set=stmt.executeUpdate();
-
-
         }catch (SQLException e){
             throw new RuntimeException(e);
-
         }
 
     }

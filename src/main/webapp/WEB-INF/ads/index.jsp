@@ -21,7 +21,7 @@
                         <h3 class="card-title " style="font-family: 'Jua', sans-serif" >${ad.title}</h3>
                         <p class="card-text head">${ad.description}</p>
                         <%--todo The add.category isn't apart of the ad dao. fix it.--%>
-                        <%--<p class="card-text head">${ad.category}</p>--%>
+                        <p class="card-text head">${ad.category}</p>
                         <form action="/delete" method="post">
                             <button name="deleteById" class="btn btn-danger" value="${ad.id}">delete</button>
                         </form>
