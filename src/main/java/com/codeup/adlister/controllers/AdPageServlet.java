@@ -60,7 +60,8 @@ public class AdPageServlet extends HttpServlet {
                 user.getId(),
                 request.getParameter("title"),
                 request.getParameter("description"),
-                request.getParameter("category")
+                request.getParameter("category"),
+                request.getIntHeader("status")
         );
         DaoFactory.getAdsDao().insert(ad);
         response.sendRedirect("/ads");
