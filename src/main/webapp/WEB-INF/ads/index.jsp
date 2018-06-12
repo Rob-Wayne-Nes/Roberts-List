@@ -10,12 +10,12 @@
 
 <jsp:include page="/WEB-INF/partials/navbar.jsp" />
 <div class="container">
-    <h1>Welcome to Robert's List, ${sessionScope.user.username}</h1>
+    <h1 class="text-center">Welcome to Robert's List, ${sessionScope.user.username}</h1>
 
 
     <div class="row mt-5">
         <c:forEach var="ad" items="${ads}">
-            <div class="mb-2 col-sm-2 text-center">
+            <div class=" col-lg-2 col-sm-6  text-center">
                 <div class="card" style="background-color: aqua">
                     <div class="card-body">
                         <h3 class="card-title " style="font-family: 'Jua', sans-serif" >${ad.title}</h3>
