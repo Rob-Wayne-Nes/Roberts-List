@@ -45,7 +45,10 @@ import java.util.List;
 @WebServlet(name = "controllers.AdPageServlet", urlPatterns = "/ads/page")
 public class AdPageServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         User user = (User) request.getSession().getAttribute("user");
+
+        request.setAttribute("name", user.getUsername());
         String userId = null;
         int isAdmin;
         String adId = request.getParameter("id");
@@ -64,7 +67,10 @@ public class AdPageServlet extends HttpServlet {
 
         if (user != null && userId.equals(adUserId)) {
             //****this is where to put the wiring for the users
+            request.setAttribute("title", ad.get(0).getTitle());
         }
+
+
 
         if (user != null && isAdmin == 1){
             //****this is where to put the wiring for the admin
