@@ -2,6 +2,8 @@ package com.codeup.adlister.controllers;
 
 import com.codeup.adlister.dao.DaoFactory;
 import com.codeup.adlister.models.Ad;
+import com.codeup.adlister.models.User;
+import com.codeup.adlister.util.Password;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -33,7 +35,19 @@ public class EditAdServlet extends HttpServlet {
 
 
         request.getRequestDispatcher("/WEB-INF/ads/edit.jsp").forward(request, response);
+    }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        //the iputs from the JSP need to link up with the parameters in the insert method
+       String id = request.getParameter("adId");
+       String title = request.getParameter("title");
+        String description = request.getParameter("description");
 
 
+
+        DaoFactory.getAdsDao().edit(id, title, description);
+
+        response.sendRedirect("/ads");
     }
 }

@@ -9,22 +9,28 @@
 
 <html>
 <head>
-    <title>Title</title>
+    <jsp:include page="/WEB-INF/partials/head.jsp">
+        <jsp:param name="title" value="Your profile!" />
+    </jsp:include>
 </head>
 <body>
 
 
-<h1>this is a ad page</h1>
-<form method="post" action="/ads/page?id=${adId}">
-    <button name="edit" type="submit" value="1">edit</button>
-</form>
-<form method="post" action="/ads/page?id=${adId}">
-    <button name="delete" type="submit" value="1">delete</button>
+
 
 <jsp:include page="/WEB-INF/partials/navbar.jsp" />
 <div class="container">
 
     <h1 class="text-center">Welcome to Robert's List, ${sessionScope.user.username}</h1>
+    <form method="post" action="/ads/page?id=${adId}">
+        <button name="edit" type="submit" value="1">edit</button>
+    </form>
+    <form method="post" action="/ads/page?id=${adId}">
+        <button name="delete" type="submit" value="1">delete</button>
+    </form>
+    <form method="post" action="/ads/page?id=${adId}">
+        <button name="ban" type="submit" value="1">ban</button>
+    </form>
     <h1>${ad.title}</h1>
 
     <p>${ad.description}</p>
@@ -42,11 +48,8 @@
     </form>
 
 
-</form>
-<form method="post" action="/ads/page?id=${adId}">
-    <button name="ban" type="submit" value="1">ban</button>
 
-</form>
+
 
 
 
