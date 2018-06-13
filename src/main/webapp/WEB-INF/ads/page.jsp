@@ -1,19 +1,26 @@
 <%--
   Created by IntelliJ IDEA.
-  User: nestorsalinas
+  User: computer
   Date: 6/12/18
-  Time: 3:35 PM
+  Time: 3:08 PM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
 <head>
-    <jsp:include page="/WEB-INF/partials/head.jsp">
-        <jsp:param name="title" value="Check it out!" />
-    </jsp:include>
+    <title>Title</title>
 </head>
 <body>
+
+
+<h1>this is a ad page</h1>
+<form method="post" action="/ads/page?id=${adId}">
+    <button name="edit" type="submit" value="1">edit</button>
+</form>
+<form method="post" action="/ads/page?id=${adId}">
+    <button name="delete" type="submit" value="1">delete</button>
+
 <jsp:include page="/WEB-INF/partials/navbar.jsp" />
 <div class="container">
 
@@ -35,9 +42,16 @@
     </form>
 
 
+</form>
+<form method="post" action="/ads/page?id=${adId}">
+    <button name="ban" type="submit" value="1">ban</button>
+
+</form>
+
 
 
 </div>
 <%@ include file="/WEB-INF/partials/script.jsp"%>
+
 </body>
 </html>

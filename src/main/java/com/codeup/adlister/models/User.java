@@ -59,4 +59,5 @@ public class User {
     public int getRole() {
         return role;
     }
+
 }

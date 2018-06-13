@@ -52,7 +52,7 @@ public class AdPageServlet extends HttpServlet {
         String userId = null;
         int isAdmin;
         String adId = request.getParameter("id");
-        Ads ads = DaoFactory.getAdsDao();
+//        Ads ads = DaoFactory.getAdsDao();
         List<Ad> ad = DaoFactory.getAdsDao().GetAdById(adId);
         String adUserId = Long.toString(ad.get(0).getUserId());
 
@@ -76,25 +76,46 @@ public class AdPageServlet extends HttpServlet {
             //****this is where to put the wiring for the admin
         }
 
+        request.setAttribute("adId", adId);
         request.getRequestDispatcher("/WEB-INF/ads/page.jsp").forward(request, response);
 
 
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+
+        String id = request.getParameter("id");
+
+        int intid = Integer.parseInt(id);
 
         String edit = request.getParameter("edit");
         String delete = request.getParameter("delete");
         String ban = request.getParameter("ban");
 
-        if (edit.equals("1")){
-            //where to wire up the edit button
-        }
-        if (delete.equals("1")){
-            //where to wire up the delete button
-        }
-        if (ban.equals("1")){
-            //where to wire up the ban button
-        }
+
+        List<Ad> ad = DaoFactory.getAdsDao().GetAdById(id);
+        String adUserId = Long.toString(ad.get(0).getUserId());
+        System.out.println("pre ban userid" + adUserId);
+
+//        if (edit != null || delete != null || ban != null) {
+
+            if (edit != null && edit.equals("1")) {
+                response.sendRedirect("/ads/edit?id=" + id);
+                return;
+            }
+            if (delete != null && delete.equals("1")) {
+                DaoFactory.getAdsDao().deactivateAd(intid);
+                response.sendRedirect("/ads");
+                return;
+            }
+
+            if (ban != null && ban.equals("1")) {
+                System.out.println("ban fired" + adUserId);
+                DaoFactory.getUsersDao().deactivateUser(adUserId);
+                System.out.println("ban is firing");
+                response.sendRedirect("/ads");
+                return;
+            }
+//        }
     }
 }

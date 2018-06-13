@@ -57,6 +57,23 @@ public class MySQLUsersDao implements Users {
         }
     }
 
+
+    public void deactivateUser(String ide) {
+        String query="UPDATE user SET status=? WHERE id=?";
+        try{
+            PreparedStatement stmt=connection.prepareStatement(query);
+            stmt.setInt(1,0);
+            stmt.setString(2,ide);
+            int set=stmt.executeUpdate();
+            System.out.println();
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
+
+
+
+
     private User extractUser(ResultSet rs) throws SQLException {
         if (! rs.next()) {
             return null;
