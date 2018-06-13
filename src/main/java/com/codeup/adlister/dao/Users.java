@@ -8,7 +8,6 @@ public interface Users {
     User findByUsername(String username);
     Long insert(User user);
 
-    void deactivateUser(String adUserId);
 
-    void deactivateUser(int ide);
+    void deactivateUser(String intid);
 }

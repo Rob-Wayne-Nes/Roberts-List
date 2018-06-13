@@ -14,7 +14,8 @@ import java.io.IOException;
 @WebServlet(name = "controllers.LoginServlet", urlPatterns = "/login")
 public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.sendRedirect("/ads/edit");
+
+
         if (request.getSession().getAttribute("user") != null) {
             response.sendRedirect("/profile");
             return;
