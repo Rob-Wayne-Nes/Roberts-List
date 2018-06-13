@@ -19,8 +19,6 @@
 
     <form action="/ads/page" method="post">
         <input type="button" class="btn btn-danger" name="submit">
-        <input type="button" class="btn btn-danger" name="submit">
-        <input type="button" class="btn btn-danger" name="submit">
     </form>
 
 
