@@ -71,6 +71,7 @@ public class AdPageServlet extends HttpServlet {
         }
 
 
+
         if (user != null && isAdmin == 1){
             //****this is where to put the wiring for the admin
         }
