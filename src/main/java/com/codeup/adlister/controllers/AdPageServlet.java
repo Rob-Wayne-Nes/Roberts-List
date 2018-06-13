@@ -16,7 +16,6 @@ import java.util.List;
 @WebServlet(name = "controllers.AdPageServlet", urlPatterns = "/ads/page")
 public class AdPageServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         User user = (User) request.getSession().getAttribute("user");
         String userId = null;
         int isAdmin;
@@ -42,7 +41,7 @@ public class AdPageServlet extends HttpServlet {
             //****this is where to put the wiring for the admin
         }
 
-
+        request.setAttribute("adId", adId);
         request.getRequestDispatcher("/WEB-INF/ads/page.jsp").forward(request, response);
 
 
@@ -50,20 +49,27 @@ public class AdPageServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
+        String id = request.getParameter("id");
+
+
         String edit = request.getParameter("edit");
         System.out.println(edit);
         String delete = request.getParameter("delete");
         String ban = request.getParameter("ban");
 
-        if (!edit.equals(null) && edit.equals("1")){
+//        if (edit != null || delete != null || ban != null) {
 
-            response.sendRedirect("/ads/edit");
-        }
-        if (!delete.equals(null) &&delete.equals("1")){
-        }
+            if (edit.equals("1")) {
 
-            if (!ban.equals(null) &&ban.equals("1")){
-            //where to wire up the ban button
-        }
+                response.sendRedirect("/ads/edit?id=" + id);
+                return;
+            }
+            if (delete.equals("1")) {
+            }
+
+            if (ban.equals("1")) {
+                //where to wire up the ban button
+            }
+//        }
     }
 }
