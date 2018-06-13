@@ -23,6 +23,8 @@ public class DeleteAdServlet extends HttpServlet{
         }
 
 
+
     }
+
 
 }

@@ -48,7 +48,6 @@ public class MySQLUsersDao implements Users {
             stmt.setString(4, user.getPassword());
             stmt.setInt(1, 0);
             stmt.setInt(5, 1);
-
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             rs.next();
@@ -58,17 +57,37 @@ public class MySQLUsersDao implements Users {
         }
     }
 
+
+    public void deactivateUser(String ide) {
+        String query="UPDATE user SET status=? WHERE id=?";
+        try{
+            PreparedStatement stmt=connection.prepareStatement(query);
+            stmt.setInt(1,0);
+            stmt.setString(2,ide);
+            int set=stmt.executeUpdate();
+            System.out.println();
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
+
+
+
+
     private User extractUser(ResultSet rs) throws SQLException {
         if (! rs.next()) {
             return null;
         }
         return new User(
             rs.getLong("id"),
-            rs.getString("username"),
+                rs.getInt("role"),
+                rs.getString("username"),
             rs.getString("email"),
             rs.getString("password")
         );
     }
+
+
 
 
 

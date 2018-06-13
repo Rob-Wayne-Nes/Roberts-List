@@ -7,7 +7,7 @@
     <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item ">
-                <a class="nav-link" href="/login">Login <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="/login">Profile login<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/logout">logout</a>
@@ -20,10 +20,10 @@
             </li>
 
         </ul>
-        <form
-                class="form-inline my-2 my-lg-0">
-            <input class="form-control col-lg-6 col-sm-4" type="search" placeholder="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0 ml-4" type="submit">Search</button>
+        <form class="form-inline my-2 my-lg-0" action="/search" method="POST">
+            <label for="input"></label>
+            <input class="form-control w-2" type="search" placeholder="Search" id="input" name="input">
+            <button class="btn btn-outline-success my-2 my-sm-0 ml-4 text-center" type="submit">Search</button>
         </form>
     </div>
 </nav>

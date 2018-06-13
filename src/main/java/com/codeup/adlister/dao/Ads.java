@@ -2,6 +2,7 @@ package com.codeup.adlister.dao;
 
 import com.codeup.adlister.models.Ad;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public interface Ads {
@@ -16,5 +17,7 @@ public interface Ads {
 
     //returns an individual ad based on the ad id
     List<Ad> GetAdById(String Id);
+
+    List<Ad> search(String string) throws SQLException;
 
 }

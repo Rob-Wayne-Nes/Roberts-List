@@ -13,57 +13,111 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+
+
+//
+//@WebServlet(name = "controllers.AdsIndexServlet", urlPatterns = "/ads")
+//public class AdsIndexServlet extends HttpServlet {
+//    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+////        request.setAttribute("ads", DaoFactory.getAdsDao().all());
+//        List<Ad> ads = DaoFactory.getAdsDao().all();
+//        for(Ad ad: ads){
+//            String title = ad.getTitle();
+//            if(title.length() > 10){
+//                String titletrim = title.substring(0,10);
+//                ad.setTitle(titletrim);
+//            }
+//            if(ad.getDescription().length() > 30){
+//                String descript = ad.getDescription();
+//                String descriptiontrim = descript.substring( 0, 30);
+//                ad.setDescription(descriptiontrim);
+//            }
+//
+//        }
+//
+//        request.setAttribute("ads", ads);
+//        request.getRequestDispatcher("index.jsp").forward(request, response);
+//    }
+//}
+
+
+
 @WebServlet(name = "controllers.AdPageServlet", urlPatterns = "/ads/page")
 public class AdPageServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        User user = (User) request.getSession().getAttribute("user");
-        String userId = null;
 
-        try {
+        User user = (User) request.getSession().getAttribute("user");
+
+        request.setAttribute("name", user.getUsername());
+        String userId = null;
+        int isAdmin;
+        String adId = request.getParameter("id");
+//        Ads ads = DaoFactory.getAdsDao();
+        List<Ad> ad = DaoFactory.getAdsDao().GetAdById(adId);
+        String adUserId = Long.toString(ad.get(0).getUserId());
+
+        if (user != null){
             userId = Long.toString(user.getId());
-        } catch (NullPointerException e){
-             userId = null;
+            isAdmin = user.getRole();
+
+        } else {
+            userId = null;
+            isAdmin = 0;
         }
 
-        String adId = request.getParameter("id");
-         Ads ads = DaoFactory.getAdsDao();
-
-        List<Ad> ad =DaoFactory.getAdsDao().GetAdById(adId);
-           String adUserId = Long.toString(ad.get(0).getUserId());
-
-
-           if (!userId.equals(null) && userId.equals(adUserId)){
-               System.out.println("this worked");
-           }
+        if (user != null && userId.equals(adUserId)) {
+            //****this is where to put the wiring for the users
+            request.setAttribute("title", ad.get(0).getTitle());
+        }
 
 
 
-//        if ()
+        if (user != null && isAdmin == 1){
+            //****this is where to put the wiring for the admin
+        }
 
-      //call to the ad dao and see if the user id on the ad equals the user id on the user
-      //if it does give them the option to edit or delete.
-
+        request.setAttribute("adId", adId);
+        request.getRequestDispatcher("/WEB-INF/ads/page.jsp").forward(request, response);
 
 
     }
-//        if (request.getSession().getAttribute("user") == null) {
-//            response.sendRedirect("/login");
-//            return;
-//        }
-//        request.getRequestDispatcher("/WEB-INF/ads/create.jsp")
-//                .forward(request, response);
-//    }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        User user = (User) request.getSession().getAttribute("user");
-        Ad ad = new Ad(
-                user.getId(),
-                request.getParameter("title"),
-                request.getParameter("description"),
-                request.getParameter("category"),
-                request.getIntHeader("status")
-        );
-        DaoFactory.getAdsDao().insert(ad);
-        response.sendRedirect("/ads");
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+
+        String id = request.getParameter("id");
+
+        int intid = Integer.parseInt(id);
+
+        String edit = request.getParameter("edit");
+        String delete = request.getParameter("delete");
+        String ban = request.getParameter("ban");
+
+
+
+        List<Ad> ad = DaoFactory.getAdsDao().GetAdById(id);
+        String adUserId = Long.toString(ad.get(0).getUserId());
+        System.out.println("pre ban userid" + adUserId);
+
+//        if (edit != null || delete != null || ban != null) {
+
+            if (edit != null && edit.equals("1")) {
+                response.sendRedirect("/ads/edit?id=" + id);
+                return;
+            }
+            if (delete != null && delete.equals("1")) {
+                DaoFactory.getAdsDao().deactivateAd(intid);
+                response.sendRedirect("/ads");
+                return;
+            }
+
+            if (ban != null && ban.equals("1")) {
+                System.out.println("ban fired" + adUserId);
+                DaoFactory.getUsersDao().deactivateUser(adUserId);
+                System.out.println("ban is firing");
+                response.sendRedirect("/ads");
+                return;
+            }
+//        }
+>>>>>>> 30c6b6634c4d3f9eed9d1a5692f4a16237e91389
     }
 }
