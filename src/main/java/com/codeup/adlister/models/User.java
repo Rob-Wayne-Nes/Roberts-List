@@ -60,7 +60,4 @@ public class User {
         return role;
     }
 
-    public void banUser(String id){
-
-    }
 }

@@ -51,24 +51,29 @@ public class AdPageServlet extends HttpServlet {
 
         String id = request.getParameter("id");
 
+        int intid = Integer.parseInt(id);
 
         String edit = request.getParameter("edit");
         System.out.println(edit);
         String delete = request.getParameter("delete");
         String ban = request.getParameter("ban");
 
+        List<Ad> ad = DaoFactory.getAdsDao().GetAdById(id);
+        String adUserId = Long.toString(ad.get(0).getUserId());
+
 //        if (edit != null || delete != null || ban != null) {
 
-            if (edit.equals("1")) {
+            if (edit != null && edit.equals("1")) {
 
                 response.sendRedirect("/ads/edit?id=" + id);
                 return;
             }
-            if (delete.equals("1")) {
+            if (delete != null && delete.equals("1")) {
+                DaoFactory.getAdsDao().deactivateAd(intid);
             }
 
-            if (ban.equals("1")) {
-                //where to wire up the ban button
+            if (ban != null && ban.equals("1")) {
+                DaoFactory.getUsersDao().deactivateUser(adUserId);
             }
 //        }
     }
