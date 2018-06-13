@@ -17,4 +17,8 @@ public interface Ads {
     //returns an individual ad based on the ad id
     List<Ad> GetAdById(String Id);
 
+    //returns all the adds related with input search criteria
+    //returns an individual ad based on the ad id
+    List<Ad> GetAdBySearch(String input);
+
 }

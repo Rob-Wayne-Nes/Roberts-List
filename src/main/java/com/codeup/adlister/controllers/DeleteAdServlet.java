@@ -22,7 +22,6 @@ public class DeleteAdServlet extends HttpServlet{
             throw new RuntimeException(e);
         }
 
-
     }
 
 }

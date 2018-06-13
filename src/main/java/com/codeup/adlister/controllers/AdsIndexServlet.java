@@ -12,12 +12,9 @@ import java.io.IOException;
 @WebServlet(name = "controllers.AdsIndexServlet", urlPatterns = "/ads")
 public class AdsIndexServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("ads", DaoFactory.getAdsDao().all());
-        request.getRequestDispatcher("index.jsp").forward(request, response);
+            request.setAttribute("ads", DaoFactory.getAdsDao().all());
+            request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 
 
-//    protected void doPost(HttpServletResponse response,HttpServletRequest request) throws  ServletException,IOException{
-//        request.getRequestDispatcher("DeleteAdServlet.java").forward(request,response);
-//    }
 }

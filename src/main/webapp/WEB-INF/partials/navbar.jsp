@@ -20,10 +20,9 @@
             </li>
 
         </ul>
-        <form
-                class="form-inline my-2 my-lg-0">
-            <input class="form-control col-lg-6 col-sm-4" type="search" placeholder="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0 ml-4" type="submit">Search</button>
+        <form class="form-inline my-2 my-lg-0" action="/search" method="post">
+            <input class="form-control col-lg-6 col-sm-4" type="search" placeholder="Search" >
+            <button class="btn btn-outline-success my-2 my-sm-0 ml-4" type="submit" name="searchTerm">Search</button>
         </form>
     </div>
 </nav>
