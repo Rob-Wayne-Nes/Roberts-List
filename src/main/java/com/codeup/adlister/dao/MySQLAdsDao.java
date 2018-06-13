@@ -78,17 +78,6 @@ public class MySQLAdsDao implements Ads {
         return ads;
     }
 
-    private Ad findbyId(String id) {
-        String query = "SELECT * FROM ads WHERE id = ?";
-        try {
-            PreparedStatement stmt = connection.prepareStatement(query);
-            stmt.setString(1, id);
-            return extractAd(stmt.executeQuery());
-        } catch (SQLException e) {
-            throw new RuntimeException("Error finding a ad by id", e);
-        }
-    }
-
 
     @Override
    public void deactivateAd(int ide){
@@ -130,6 +119,25 @@ public class MySQLAdsDao implements Ads {
         }
 
     }
+
+
+    public List<Ad> search(String searchItem) throws SQLException {
+        String input = "SELECT * FROM ads WHERE title LIKE ? OR description LIKE ? OR category LIKE ?";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(input);
+            stmt.setString(1, "%" + searchItem + "%");
+            stmt.setString(2, "%" + searchItem + "%");
+            stmt.setString(3, "%" + searchItem + "%");
+            stmt.executeQuery();
+            ResultSet rs = stmt.getResultSet();
+            return createAdsFromResults(rs);
+        } catch (SQLException e) {
+            throw new RuntimeException("Error with search results", e);
+        }
+    }
+
+
+
 
 
 
