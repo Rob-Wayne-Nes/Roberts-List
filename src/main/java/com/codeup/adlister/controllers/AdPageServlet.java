@@ -118,6 +118,5 @@ public class AdPageServlet extends HttpServlet {
                 return;
             }
 //        }
->>>>>>> 30c6b6634c4d3f9eed9d1a5692f4a16237e91389
     }
 }
