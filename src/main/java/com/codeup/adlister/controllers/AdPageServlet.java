@@ -70,6 +70,7 @@ public class AdPageServlet extends HttpServlet {
             request.setAttribute("title", ad.get(0).getTitle());
         }
 
+
         if (user != null && isAdmin == 1){
             //****this is where to put the wiring for the admin
         }
