@@ -20,14 +20,19 @@ public class AdsIndexServlet extends HttpServlet {
         List<Ad> ads = DaoFactory.getAdsDao().all();
         for(Ad ad: ads){
             String title = ad.getTitle();
-            if(title.length() > 10){
-                String titletrim = title.substring(0,10);
+            if(title.length() > 8){
+                String titletrim = title.substring(0,8);
                 ad.setTitle(titletrim);
             }
-            if(ad.getDescription().length() > 30){
+            if(ad.getDescription().length() > 10){
                 String descript = ad.getDescription();
-                String descriptiontrim = descript.substring( 0, 30);
+                String descriptiontrim = descript.substring( 0, 10);
                 ad.setDescription(descriptiontrim);
+            }
+            if(ad.getCategory().length() > 10){
+                String cat = ad.getCategory();
+                String catTrim = cat.substring(0,10);
+                ad.setCategory(catTrim);
             }
 
         }
