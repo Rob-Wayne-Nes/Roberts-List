@@ -1,6 +1,5 @@
 package com.codeup.adlister.controllers;
 
-import com.codeup.adlister.dao.Ads;
 import com.codeup.adlister.dao.DaoFactory;
 import com.codeup.adlister.models.Ad;
 import com.codeup.adlister.models.User;
@@ -16,36 +15,10 @@ import java.util.List;
 
 
 
-//
-//@WebServlet(name = "controllers.AdsIndexServlet", urlPatterns = "/ads")
-//public class AdsIndexServlet extends HttpServlet {
-//    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-////        request.setAttribute("ads", DaoFactory.getAdsDao().all());
-//        List<Ad> ads = DaoFactory.getAdsDao().all();
-//        for(Ad ad: ads){
-//            String title = ad.getTitle();
-//            if(title.length() > 10){
-//                String titletrim = title.substring(0,10);
-//                ad.setTitle(titletrim);
-//            }
-//            if(ad.getDescription().length() > 30){
-//                String descript = ad.getDescription();
-//                String descriptiontrim = descript.substring( 0, 30);
-//                ad.setDescription(descriptiontrim);
-//            }
-//
-//        }
-//
-//        request.setAttribute("ads", ads);
-//        request.getRequestDispatcher("index.jsp").forward(request, response);
-//    }
-//}
-
-
-
 @WebServlet(name = "controllers.AdPageServlet", urlPatterns = "/ads/page")
 public class AdPageServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 
 
         //The stuff for the navbar
@@ -73,12 +46,17 @@ public class AdPageServlet extends HttpServlet {
         String userId = null;
         int isAdmin;
         String adId = request.getParameter("id");
-//        Ads ads = DaoFactory.getAdsDao();
-        List<Ad> ad = DaoFactory.getAdsDao().GetAdById(adId);
-        String adUserId = Long.toString(ad.get(0).getUserId());
-
-        if (user != null){
+        Ad thisAd = DaoFactory.getAdsDao().GetAdById(adId).get(0);
+        String clase="none";
+        String display="none";
+        //checking for an open session
+        if(request.getSession().getAttribute("user")!=null){
+            User user = (User) request.getSession().getAttribute("user");
+            String userId = null; // why??
+            int isAdmin = user.getRole();//is admin?
+            String adUserId = Long.toString(thisAd.getUserId());
             userId = Long.toString(user.getId());
+
             isAdmin = user.getRole();
             request.setAttribute("name", user.getUsername());
 
@@ -88,17 +66,24 @@ public class AdPageServlet extends HttpServlet {
         }
 
         if (user != null && userId.equals(adUserId)) {
+
             //****this is where to put the wiring for the users
-            request.setAttribute("title", ad.get(0).getTitle());
-        }
-
-
-
-        if (user != null && isAdmin == 1){
+            if ( adUserId.equals(userId)){
+               clase="";
+            }
             //****this is where to put the wiring for the admin
+            if (isAdmin == 1){
+                clase="";
+               display="block";
+            }
         }
 
-        request.setAttribute("adId", adId);
+        else {
+             clase="none";
+        }
+        request.setAttribute("display",display);
+        request.setAttribute("clase",clase);
+        request.setAttribute("ad", thisAd);
         request.getRequestDispatcher("/WEB-INF/ads/page.jsp").forward(request, response);
 
 
@@ -106,7 +91,7 @@ public class AdPageServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-        String id = request.getParameter("id");
+        String id =request.getParameter("id");
 
         int intid = Integer.parseInt(id);
 
@@ -115,8 +100,13 @@ public class AdPageServlet extends HttpServlet {
         String ban = request.getParameter("ban");
 
 
+
         List<Ad> ad = DaoFactory.getAdsDao().GetAdById(id);
         String adUserId = Long.toString(ad.get(0).getUserId());
+
+        System.out.println("pre ban userid" + adUserId);
+        System.out.println("Ad recibida "+ ad.get(0).getTitle());
+
 
 //        if (edit != null || delete != null || ban != null) {
 
@@ -135,6 +125,7 @@ public class AdPageServlet extends HttpServlet {
                 response.sendRedirect("/ads");
                 return;
             }
+
 //        }
     }
 }
