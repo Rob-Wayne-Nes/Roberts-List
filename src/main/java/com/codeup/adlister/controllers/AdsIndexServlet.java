@@ -29,6 +29,11 @@ public class AdsIndexServlet extends HttpServlet {
                 String descriptiontrim = descript.substring( 0, 10);
                 ad.setDescription(descriptiontrim);
             }
+            if(ad.getCategory().length() > 10){
+                String cat = ad.getCategory();
+                String catTrim = cat.substring(0,10);
+                ad.setCategory(catTrim);
+            }
 
         }
 

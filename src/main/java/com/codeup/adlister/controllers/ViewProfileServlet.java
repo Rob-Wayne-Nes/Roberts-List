@@ -35,6 +35,11 @@ public class ViewProfileServlet extends HttpServlet {
                     String destrim = des.substring(0, 12);
                     ad.setDescription(destrim);
                 }
+                if(ad.getCategory().length() > 10){
+                    String cat = ad.getCategory();
+                    String catTrim = cat.substring(0,10);
+                    ad.setCategory(catTrim);
+                }
             }
 
 

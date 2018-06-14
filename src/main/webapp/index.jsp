@@ -24,7 +24,7 @@
             <div class="mb-2 col-lg-2 col-sm-6 text-center">
             <a href="/ads/page?id=${ad.id}">
 
-                <div class="card" style="background-color: aqua">
+                <div class="card" style="background-color: papayawhip">
                     <div class="card-body">
                         <h3 class="card-title " style="font-family: 'Jua', sans-serif" >${ad.title}</h3>
                         <p class="card-text head">${ad.description}</p>
@@ -32,8 +32,8 @@
                         <p class="card-text head">${ad.category}</p>
                     </div>
                 </div>
-            </div>
             </a>
+            </div>
         </c:forEach>
     </div>
 
