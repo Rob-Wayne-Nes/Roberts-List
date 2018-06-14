@@ -2,6 +2,7 @@ package com.codeup.adlister.controllers;
 
 
 import com.codeup.adlister.dao.DaoFactory;
+import com.codeup.adlister.models.Ad;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 @WebServlet(name = "SearchServlet", urlPatterns = "/search")
 public class SearchServlet extends HttpServlet{
@@ -50,7 +52,32 @@ public class SearchServlet extends HttpServlet{
         }
 
         try {
-            request.setAttribute("ads", DaoFactory.getAdsDao().search(searchItem));
+
+            List<Ad> ads = DaoFactory.getAdsDao().search(searchItem);
+            for (Ad ad: ads){
+                String title = ad.getTitle();
+                if (title.length() > 8){
+                    String titTrim = title.substring(0,8);
+                    ad.setTitle(titTrim);
+                }
+                if (ad.getDescription().length() > 20){
+                    String desc = ad.getDescription();
+                    String descTrim = desc.substring(0,20);
+                    ad.setDescription(descTrim);
+
+                }
+                if(ad.getCategory().length() > 10){
+                    String cat = ad.getCategory();
+                    String catTrim = cat.substring(0,10);
+                    ad.setCategory(catTrim);
+                }
+            }
+
+            req.setAttribute("ads", ads);
+
+
+
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

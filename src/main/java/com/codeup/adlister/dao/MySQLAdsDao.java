@@ -148,13 +148,25 @@ public class MySQLAdsDao implements Ads {
     @Override
     public void edit(String id, String title, String description) {
 
+
     }
 
 
     @Override
     public void edit(String id, String title, String description, String category) {
 
+
+    }
+
+
         try {
+
+
+    @Override
+    public void edit(String id, String title, String description, String category) {
+
+        try {
+
 
             String insertQuery = " UPDATE ads SET title = ?, description = ?, category = ? where id= ?";
             PreparedStatement stmt = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
@@ -174,11 +186,13 @@ public class MySQLAdsDao implements Ads {
     }
 
 
+
     public void addImage(){
 
 
 
     }
+
 
 
 }

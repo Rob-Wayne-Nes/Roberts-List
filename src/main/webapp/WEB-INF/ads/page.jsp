@@ -10,7 +10,10 @@
 <html>
 <head>
     <jsp:include page="/WEB-INF/partials/head.jsp">
-        <jsp:param name="title" value="Your profile!" />
+
+        <jsp:param name="title" value="${ad.title}" />
+
+
     </jsp:include>
 </head>
 <body>
@@ -19,7 +22,9 @@
 
 
 <jsp:include page="/WEB-INF/partials/navbar.jsp" />
+
 <div class="container">
+
 
     <h1 class="text-center">Welcome to Robert's List, ${sessionScope.user.username}</h1>
     <form method="post" action="/ads/page?id=${adId}">
@@ -31,6 +36,7 @@
     <form method="post" action="/ads/page?id=${adId}">
         <button name="ban" type="submit" value="1">ban</button>
     </form>
+
     <h1>${ad.title}</h1>
 
     <p>${ad.description}</p>
@@ -78,6 +84,17 @@
                 </form>
             </div>
         </div>
+
+
+<form method="post" action="/ads/page?id=${adId}">
+    <button name="ban" type="submit" value="1">ban</button>
+
+
+
+
+
+
+
 
 </div>
 

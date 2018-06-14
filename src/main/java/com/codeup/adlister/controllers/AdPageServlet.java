@@ -40,11 +40,13 @@ public class AdPageServlet extends HttpServlet {
 
 
 
+
         User user = (User) request.getSession().getAttribute("user");
 
 
         String userId = null;
         int isAdmin;
+
         String adId = request.getParameter("id");
         Ad thisAd = DaoFactory.getAdsDao().GetAdById(adId).get(0);
         String clase="none";
