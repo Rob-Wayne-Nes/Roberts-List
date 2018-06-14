@@ -171,4 +171,11 @@ public class MySQLAdsDao implements Ads {
     }
 
 
+    public void addImage(){
+
+
+
+    }
+
+
 }

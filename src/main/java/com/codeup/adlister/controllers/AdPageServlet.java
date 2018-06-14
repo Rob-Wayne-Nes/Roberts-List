@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -45,6 +46,24 @@ import java.util.List;
 @WebServlet(name = "controllers.AdPageServlet", urlPatterns = "/ads/page")
 public class AdPageServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+
+        //The stuff for the navbar
+
+        HttpSession session = request.getSession();
+        Object uname = session.getAttribute("user");
+        String location = "ads";
+
+        if (uname != null) {
+            boolean loggedin = true;
+            request.setAttribute("loggedin", loggedin);
+        } else {
+            boolean loggedin = false;
+            request.setAttribute("loggedin", loggedin);
+        }
+        request.setAttribute("location", location);
+
+        //**********************
 
 
 
