@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -17,6 +18,33 @@ import java.util.List;
 @WebServlet(name = "controllers.AdPageServlet", urlPatterns = "/ads/page")
 public class AdPageServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+
+
+        //The stuff for the navbar
+
+        HttpSession session = request.getSession();
+        Object uname = session.getAttribute("user");
+        String location = "ads";
+
+        if (uname != null) {
+            boolean loggedin = true;
+            request.setAttribute("loggedin", loggedin);
+        } else {
+            boolean loggedin = false;
+            request.setAttribute("loggedin", loggedin);
+        }
+        request.setAttribute("location", location);
+
+        //**********************
+
+
+
+        User user = (User) request.getSession().getAttribute("user");
+
+
+        String userId = null;
+        int isAdmin;
         String adId = request.getParameter("id");
         Ad thisAd = DaoFactory.getAdsDao().GetAdById(adId).get(0);
         String clase="none";
@@ -28,6 +56,17 @@ public class AdPageServlet extends HttpServlet {
             int isAdmin = user.getRole();//is admin?
             String adUserId = Long.toString(thisAd.getUserId());
             userId = Long.toString(user.getId());
+
+            isAdmin = user.getRole();
+            request.setAttribute("name", user.getUsername());
+
+        } else {
+            userId = null;
+            isAdmin = 0;
+        }
+
+        if (user != null && userId.equals(adUserId)) {
+
             //****this is where to put the wiring for the users
             if ( adUserId.equals(userId)){
                clase="";
@@ -64,8 +103,10 @@ public class AdPageServlet extends HttpServlet {
 
         List<Ad> ad = DaoFactory.getAdsDao().GetAdById(id);
         String adUserId = Long.toString(ad.get(0).getUserId());
+
         System.out.println("pre ban userid" + adUserId);
         System.out.println("Ad recibida "+ ad.get(0).getTitle());
+
 
 //        if (edit != null || delete != null || ban != null) {
 
@@ -80,9 +121,7 @@ public class AdPageServlet extends HttpServlet {
             }
 
             if (ban != null && ban.equals("1")) {
-                System.out.println("ban fired" + adUserId);
                 DaoFactory.getUsersDao().deactivateUser(adUserId);
-                System.out.println("ban is firing");
                 response.sendRedirect("/ads");
                 return;
             }
