@@ -24,4 +24,6 @@ public interface Ads {
     List<Ad> search(String string) throws SQLException;
 
     void edit(String id, String title, String description);
+
+    void edit(String id, String title, String description, String category);
 }

@@ -19,7 +19,6 @@ public class EditAdServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String adId = request.getParameter("id");
-        System.out.println("edit servlet" + adId);
         List<Ad> ad = DaoFactory.getAdsDao().GetAdById(adId);
         String adUserId = Long.toString(ad.get(0).getUserId());
         String title = ad.get(0).getTitle();
@@ -41,13 +40,15 @@ public class EditAdServlet extends HttpServlet {
 
         //the iputs from the JSP need to link up with the parameters in the insert method
        String id = request.getParameter("adId");
+       String category = request.getParameter("category");
        String title = request.getParameter("title");
         String description = request.getParameter("description");
 
 
 
-        DaoFactory.getAdsDao().edit(id, title, description);
+        DaoFactory.getAdsDao().edit(id, title, description, category);
 
         response.sendRedirect("/ads");
+
     }
 }

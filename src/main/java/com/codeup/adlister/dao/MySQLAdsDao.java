@@ -145,13 +145,20 @@ public class MySQLAdsDao implements Ads {
     @Override
     public void edit(String id, String title, String description) {
 
+    }
+
+
+    @Override
+    public void edit(String id, String title, String description, String category) {
+
         try {
 
-            String insertQuery = " UPDATE ads SET title = ?, description = ? where id= ?";
+            String insertQuery = " UPDATE ads SET title = ?, description = ?, category = ? where id= ?";
             PreparedStatement stmt = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, title);
             stmt.setString(2, description);
-            stmt.setString(3, id);
+            stmt.setString(3,category);
+            stmt.setString(4, id);
 
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();

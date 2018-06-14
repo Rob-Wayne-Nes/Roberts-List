@@ -19,9 +19,17 @@
 <form method="post" action="/ads/edit">
     <div class="container">
 
+        <label for="category">Select category:</label>
+        <select class="form-control" id="category" name="category" type="radio" style="width: 15%">
+            <option>for rent</option>
+            <option>for sale</option>
+            <option>for free</option>
+            <option>discounted</option>
+        </select>
+
     <div class="form-group">
-        <label for="title">Title</label>
-        <input id="title" name="title" class="form-control" type="text" value="${title}>
+            <label for="title">Title</label>
+            <input type="text" name="title" id="title" class="form-control" value="${title}">
     </div>
 
 
@@ -29,7 +37,8 @@
         <%--todo form group is shitting itsself--%>
 
         <label for="description">Description</label>
-        <textarea id="description" name="description" class="form-control" value="${description}" type="text"></textarea>
+        <textarea id="description" name="description" class="form-control" type="text">${description}</textarea>
+
     </div>
 
 
