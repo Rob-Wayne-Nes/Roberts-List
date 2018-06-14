@@ -17,7 +17,7 @@ public class DeleteAdServlet extends HttpServlet{
         DaoFactory.getAdsDao().deactivateAd(Integer.parseInt(deleteById));
         request.setAttribute("ads", DaoFactory.getAdsDao().all());
         try {
-            request.getRequestDispatcher("/WEB-INF/ads/index.jsp").forward(request, response);
+            request.getRequestDispatcher("index.jsp").forward(request, response);
             response.sendRedirect("/ads");
         }catch (Exception e){
             throw new RuntimeException(e);
