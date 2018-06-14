@@ -15,8 +15,7 @@
     <div class="row mt-5">
         <c:forEach var="ad" items="${ads}">
             <div class="mb-2 col-lg-2 col-sm-6 text-center">
-            <a href="/ads/page?id=${ad.id}">
-
+                <a href="/ads/page?id=${ad.id}">
                 <div class="card" style="background-color: aqua">
                     <div class="card-body">
                         <h3 class="card-title " style="font-family: 'Jua', sans-serif" >${ad.title}</h3>
@@ -25,8 +24,8 @@
                         <p class="card-text head">${ad.category}</p>
                     </div>
                 </div>
+                </a>
             </div>
-            </a>
         </c:forEach>
     </div>
 
