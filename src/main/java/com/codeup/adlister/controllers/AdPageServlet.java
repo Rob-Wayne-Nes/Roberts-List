@@ -46,9 +46,11 @@ import java.util.List;
 public class AdPageServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+
+
         User user = (User) request.getSession().getAttribute("user");
 
-        request.setAttribute("name", user.getUsername());
+
         String userId = null;
         int isAdmin;
         String adId = request.getParameter("id");
@@ -59,6 +61,7 @@ public class AdPageServlet extends HttpServlet {
         if (user != null){
             userId = Long.toString(user.getId());
             isAdmin = user.getRole();
+            request.setAttribute("name", user.getUsername());
 
         } else {
             userId = null;
@@ -95,7 +98,6 @@ public class AdPageServlet extends HttpServlet {
 
         List<Ad> ad = DaoFactory.getAdsDao().GetAdById(id);
         String adUserId = Long.toString(ad.get(0).getUserId());
-        System.out.println("pre ban userid" + adUserId);
 
 //        if (edit != null || delete != null || ban != null) {
 
@@ -110,9 +112,7 @@ public class AdPageServlet extends HttpServlet {
             }
 
             if (ban != null && ban.equals("1")) {
-                System.out.println("ban fired" + adUserId);
                 DaoFactory.getUsersDao().deactivateUser(adUserId);
-                System.out.println("ban is firing");
                 response.sendRedirect("/ads");
                 return;
             }
