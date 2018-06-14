@@ -9,14 +9,23 @@
 <body>
 <jsp:include page="/WEB-INF/partials/navbar.jsp" />
 
-<div class="container-fluid">
+<%--preloader--%>
 
-    <h1 class="text-center mt-5" style="font-family: 'BioRhyme Expanded', serif;">Welcome to Robert's List!</h1>
+
+
+
+
+<%--visitor will be directed--%>
+<div class="container-fluid main">
+
+    <h1 class="text-center mt-5" style="font-family: 'BioRhyme Expanded', serif;" id="entrance">Welcome to Robert's List!</h1>
     <div class="row mt-5">
         <c:forEach var="ad" items="${ads}">
             <div class="mb-2 col-lg-2 col-sm-6 text-center">
-                <a href="/ads/page?id=${ad.id}">
-                <div class="card" style="background-color: aqua">
+            <a href="/ads/page?id=${ad.id}">
+
+                <div class="card" style="background-color: papayawhip">
+
                     <div class="card-body">
                         <h3 class="card-title " style="font-family: 'Jua', sans-serif" >${ad.title}</h3>
                         <p class="card-text head">${ad.description}</p>
@@ -24,6 +33,7 @@
                         <p class="card-text head">${ad.category}</p>
                     </div>
                 </div>
+
                 </a>
             </div>
         </c:forEach>

@@ -12,15 +12,55 @@
         <jsp:param name="title" value="Your profile!" />
     </jsp:include>
 
-
 </head>
 <body>
 <%@ include file="/WEB-INF/partials/navbar.jsp"%>
 
-    <form action="">
+<form method="post" action="/ads/edit">
+    <div class="container">
 
-    <input type="text" placeholder="${title}">
-    </form>
+        <label for="category">Select category:</label>
+        <select class="form-control" id="category" name="category" type="radio" style="width: 15%">
+            <option>for rent</option>
+            <option>for sale</option>
+            <option>for free</option>
+            <option>discounted</option>
+        </select>
+
+    <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" name="title" id="title" class="form-control" value="${title}">
+    </div>
+
+
+     <div class="form-group">
+        <%--todo form group is shitting itsself--%>
+
+        <label for="description">Description</label>
+        <textarea id="description" name="description" class="form-control" type="text">${description}</textarea>
+
+    </div>
+
+
+        <input name="adId" value="${adId}" type="hidden">
+
+
+
+        <input type="submit" class="btn btn-block btn-primary">
+    </div>
+</form>
+
+    <%--***************--%>
+    <%--<input name="title" type="text" value="${title}">--%>
+        <%--<div class="form-group">--%>
+        <%--<label for="description" ">Description</label>--%>
+
+        <%--</textarea>--%>
+        <%--</div>--%>
+    <%--<input name="adId" value="${adId}" type="hidden">--%>
+    <%--<button name="delete" type="submit" value="1">Update</button>--%>
+    <%--</div>--%>
+<%--</form>--%>
 
 <%@ include file="/WEB-INF/partials/script.jsp"%>
     </body>
