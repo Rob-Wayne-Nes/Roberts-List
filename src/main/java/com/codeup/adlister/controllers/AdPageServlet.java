@@ -86,6 +86,7 @@ public class AdPageServlet extends HttpServlet {
                 response.sendRedirect("/ads");
                 return;
             }
+
 //        }
     }
 }
