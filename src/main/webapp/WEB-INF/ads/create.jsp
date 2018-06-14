@@ -6,10 +6,15 @@
     </jsp:include>
 </head>
 <body>
+<%@ include file="/WEB-INF/partials/navbar.jsp"%>
+
 <div class="container">
     <h1>Post on my List</h1>
-    <form action="/ads/create" method="post">
+    <form action="/ads/create" method="post" enctype="multipart/form-data">
         <div class="form-group">
+
+            <input type="file" name="image">
+
             <label for="category">Select category:</label>
             <select class="form-control" id="category" name="category" type="radio" style="width: 15%">
                 <option>for rent</option>
@@ -20,7 +25,7 @@
         </div>
         <div class="form-group">
             <label for="title">Title</label>
-            <input id="title" name="title" class="form-control" type="text">
+            <input autocomplete="off" id="title" name="title" class="form-control" type="text">
         </div>
 
         <div class="form-group">

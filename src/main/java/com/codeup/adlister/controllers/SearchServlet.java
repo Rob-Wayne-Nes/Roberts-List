@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -17,22 +18,41 @@ import java.util.List;
 public class SearchServlet extends HttpServlet{
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String searchItem = req.getParameter("input");
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        req.setAttribute("searchTerm", searchItem);
+        //The stuff for the navbar
+
+        HttpSession session = request.getSession();
+        String uname = (String) session.getAttribute("user");
+        String location = "ads";
+
+        if (uname != null) {
+            boolean loggedin = true;
+            request.setAttribute("loggedin", loggedin);
+        } else {
+            boolean loggedin = false;
+            request.setAttribute("loggedin", loggedin);
+        }
+        request.setAttribute("location", location);
+
+        //**********************
+        
+        String searchItem = request.getParameter("input");
+
+        request.setAttribute("searchTerm", searchItem);
         String message = "";
 
         try {
             if (DaoFactory.getAdsDao().search(searchItem).isEmpty()) {
                 message = "No results found.";
-                req.setAttribute("message", message);
+                request.setAttribute("message", message);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
         try {
+
             List<Ad> ads = DaoFactory.getAdsDao().search(searchItem);
             for (Ad ad: ads){
                 String title = ad.getTitle();
@@ -57,10 +77,11 @@ public class SearchServlet extends HttpServlet{
 
 
 
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        req.getRequestDispatcher("index.jsp").forward(req, resp);
+        request.getRequestDispatcher("index.jsp").forward(request, response);
 
     }
 
