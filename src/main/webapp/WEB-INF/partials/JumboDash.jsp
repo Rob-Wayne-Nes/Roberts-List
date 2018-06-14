@@ -7,3 +7,4 @@
         <h4>${ad.category}</h4>
     </div>
 </div>
+
