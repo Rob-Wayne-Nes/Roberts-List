@@ -85,6 +85,9 @@ public class MySQLAdsDao implements Ads {
     }
 
 
+
+
+
     @Override
    public void deactivateAd(int ide){
         String query="UPDATE ads SET status=? WHERE id=?";
