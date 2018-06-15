@@ -10,10 +10,9 @@
 
 <div class="container">
     <h1>Post on my List</h1>
-    <form action="/ads/create" method="post" enctype="multipart/form-data">
+    <form action="/ads/create" method="post">
         <div class="form-group">
 
-            <input type="file" name="image">
 
             <label for="category">Select category:</label>
             <select class="form-control" id="category" name="category" type="radio" style="width: 15%">

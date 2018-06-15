@@ -1,8 +1,6 @@
 package com.codeup.adlister.dao;
 
 
-import com.codeup.adlister.dao.Config;
-
 import com.codeup.adlister.models.User;
 import com.mysql.cj.jdbc.Driver;
 
@@ -65,7 +63,6 @@ public class MySQLUsersDao implements Users {
             stmt.setInt(1,0);
             stmt.setString(2,ide);
             int set=stmt.executeUpdate();
-            System.out.println();
         }catch (SQLException e){
             throw new RuntimeException(e);
         }
@@ -86,8 +83,38 @@ public class MySQLUsersDao implements Users {
             rs.getString("password")
         );
     }
+    @Override
+    public void editUser(String username, String email, String password, long id){
+        String query = "UPDATE user SET username = ?, email = ?, password = ? WHERE id = ?";
 
+        try{
+            PreparedStatement stmt=connection.prepareStatement(query);
+            stmt.setString(1,username);
+            stmt.setString(2,email);
+            stmt.setString(3,password);
+            stmt.setLong(4,id);
 
+            int set=stmt.executeUpdate();
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void editUserNotPW(String username, String email, long id){
+        String query = "UPDATE user SET username = ?, email = ? WHERE id = ?";
+
+        try{
+            PreparedStatement stmt=connection.prepareStatement(query);
+            stmt.setString(1,username);
+            stmt.setString(2,email);
+            stmt.setLong(3,id);
+
+            int set=stmt.executeUpdate();
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
 
 
 

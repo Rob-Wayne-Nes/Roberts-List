@@ -31,12 +31,28 @@
                     <a class="nav-link" href="/profile">Profile</a>
                 </li>
             </c:if>
-            <c:if test="${location == \"profile\" || location == \"login\"}">
+            <c:if test="${location == \"login\"}">
                 <li class="nav-item">
                     <a class="nav-link" href="/ads">See Ads</a>
                 </li>
-            </c:if>
 
+            </c:if>
+            <c:if test="${location == \"profile\"}">
+                <li class="nav-item">
+                    <a class="nav-link" href="/ads">See Ads</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/profile/edit">Edit Profile</a>
+                </li>
+            </c:if>
+            <c:if test="${location == \"edit\"}">
+                <li class="nav-item">
+                    <a class="nav-link" href="/ads">See Ads</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/profile">View Profile</a>
+                </li>
+            </c:if>
         </ul>
         <form class="form-inline my-2 my-lg-0" action="/search" method="POST">
             <label for="input"></label>
@@ -45,7 +61,6 @@
         </form>
     </div>
 </nav>
-
 
 
 
