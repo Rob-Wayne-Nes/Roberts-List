@@ -19,10 +19,7 @@ import java.util.List;
 public class AdPageServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-
-
         //The stuff for the navbar
-
         HttpSession session = request.getSession();
         Object uname = session.getAttribute("user");
         String location = "ads";
@@ -38,51 +35,32 @@ public class AdPageServlet extends HttpServlet {
 
         //**********************
 
-
-
-
-        User user = (User) request.getSession().getAttribute("user");
-
-
-        String userId = null;
-        int isAdmin;
+//        String userId = null;
+//        int isAdmin;
 
         String adId = request.getParameter("id");
         Ad thisAd = DaoFactory.getAdsDao().GetAdById(adId).get(0);
         String clase="none";
         String display="none";
         //checking for an open session
-        if(request.getSession().getAttribute("user")!=null){
+        if(request.getSession().getAttribute("user")!=null) {
             User user = (User) request.getSession().getAttribute("user");
-            String userId = null; // why??
             int isAdmin = user.getRole();//is admin?
             String adUserId = Long.toString(thisAd.getUserId());
-            userId = Long.toString(user.getId());
-
-            isAdmin = user.getRole();
+            String userId = Long.toString(user.getId());
             request.setAttribute("name", user.getUsername());
-
-        } else {
-            userId = null;
-            isAdmin = 0;
-        }
-
-        if (user != null && userId.equals(adUserId)) {
-
             //****this is where to put the wiring for the users
-            if ( adUserId.equals(userId)){
-               clase="";
+            if (adUserId.equals(userId)) {
+                clase = "";
             }
             //****this is where to put the wiring for the admin
-            if (isAdmin == 1){
-                clase="";
-               display="block";
+            if (isAdmin == 1) {
+                clase = "";
+                display = "block";
             }
+
         }
 
-        else {
-             clase="none";
-        }
         request.setAttribute("display",display);
         request.setAttribute("clase",clase);
         request.setAttribute("ad", thisAd);
@@ -112,21 +90,21 @@ public class AdPageServlet extends HttpServlet {
 
 //        if (edit != null || delete != null || ban != null) {
 
-            if (edit != null && edit.equals("1")) {
-                response.sendRedirect("/ads/edit?id=" + id);
-                return;
-            }
-            if (delete != null && delete.equals("1")) {
-                DaoFactory.getAdsDao().deactivateAd(intid);
-                response.sendRedirect("/ads");
-                return;
-            }
+        if (edit != null && edit.equals("1")) {
+            response.sendRedirect("/ads/edit?id=" + id);
+            return;
+        }
+        if (delete != null && delete.equals("1")) {
+            DaoFactory.getAdsDao().deactivateAd(intid);
+            response.sendRedirect("/ads");
+            return;
+        }
 
-            if (ban != null && ban.equals("1")) {
-                DaoFactory.getUsersDao().deactivateUser(adUserId);
-                response.sendRedirect("/ads");
-                return;
-            }
+        if (ban != null && ban.equals("1")) {
+            DaoFactory.getUsersDao().deactivateUser(adUserId);
+            response.sendRedirect("/ads");
+            return;
+        }
 
 //        }
     }

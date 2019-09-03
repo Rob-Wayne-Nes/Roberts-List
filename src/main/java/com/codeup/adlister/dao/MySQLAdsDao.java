@@ -42,13 +42,14 @@ public class MySQLAdsDao implements Ads {
     @Override
     public Long insert(Ad ad) {
         try {
-            String insertQuery = "INSERT INTO ads(user_id, title, description,category,status) VALUES (?,?,?,?,?)";
+            String insertQuery = "INSERT INTO ads(user_id, title, description,category,status, image) VALUES (?,?,?,?,?,?)";
             PreparedStatement stmt = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
             stmt.setLong(1, ad.getUserId());
             stmt.setString(2, ad.getTitle());
             stmt.setString(3, ad.getDescription());
             stmt.setString(4,ad.getCategory());
             stmt.setInt(5,ad.getStatus());
+            stmt.setString(6,ad.getImage());
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             rs.next();
@@ -58,10 +59,6 @@ public class MySQLAdsDao implements Ads {
         }
     }
 
-    @Override
-    public Long edit(String id, String title, String description, String category, int status) {
-        return null;
-    }
 
 
     private Ad extractAd(ResultSet rs) throws SQLException {
@@ -71,7 +68,8 @@ public class MySQLAdsDao implements Ads {
             rs.getString("title"),
             rs.getString("description"),
             rs.getString("category"),
-            rs.getInt("status")
+            rs.getInt("status"),
+            rs.getString("image")
 
         );
     }
@@ -153,27 +151,18 @@ public class MySQLAdsDao implements Ads {
 
 
     @Override
-    public void edit(String id, String title, String description, String category) {
-
-
-    }
-
-
+    public void edit(String id, String title, String description, String category, String image) {
         try {
 
 
-    @Override
-    public void edit(String id, String title, String description, String category) {
-
-        try {
-
-
-            String insertQuery = " UPDATE ads SET title = ?, description = ?, category = ? where id= ?";
+            String insertQuery = " UPDATE ads SET title = ?, description = ?, category = ?, image = ? where id= ?";
             PreparedStatement stmt = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, title);
             stmt.setString(2, description);
             stmt.setString(3,category);
-            stmt.setString(4, id);
+            stmt.setString(4, image);
+            stmt.setString(5, id);
+
 
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
@@ -185,13 +174,6 @@ public class MySQLAdsDao implements Ads {
 
     }
 
-
-
-    public void addImage(){
-
-
-
-    }
 
 
 

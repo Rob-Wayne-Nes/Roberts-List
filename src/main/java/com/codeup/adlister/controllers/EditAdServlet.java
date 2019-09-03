@@ -62,10 +62,12 @@ public class EditAdServlet extends HttpServlet {
        String category = request.getParameter("category");
        String title = request.getParameter("title");
         String description = request.getParameter("description");
+        String image = request.getParameter("image");
 
 
 
-        DaoFactory.getAdsDao().edit(id, title, description, category);
+
+        DaoFactory.getAdsDao().edit(id, title, description, category, image);
 
         response.sendRedirect("/ads");
 

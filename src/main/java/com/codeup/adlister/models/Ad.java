@@ -7,22 +7,25 @@ public class Ad {
     private String description;
     private String category;
     private int status;
+    private String image;
 
-    public Ad(long id, long userId, String title, String description, String category, int status) {
+    public Ad(long id, long userId, String title, String description, String category, int status, String image) {
         this.id = id;
         this.userId = userId;
         this.title = title;
         this.description = description;
         this.category= category;
         this.status = 1;
+        this.image = image;
     }
 
-    public Ad(long userId, String title, String description,String category,int status) {
+    public Ad(long userId, String title, String description,String category,int status, String image) {
         this.userId = userId;
         this.title = title;
         this.description = description;
         this.category=category;
         this.status = 1;
+        this.image = image;
     }
 
 
@@ -74,7 +77,9 @@ public class Ad {
         this.description = description;
     }
 
-    public void editAd(String id){
+    public void editAd(String id){ }
 
-    }
+    public String getImage() { return image; }
+
+    public void setImage(String image) { this.image = image; }
 }

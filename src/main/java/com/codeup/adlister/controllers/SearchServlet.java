@@ -73,7 +73,7 @@ public class SearchServlet extends HttpServlet{
                 }
             }
 
-            req.setAttribute("ads", ads);
+            request.setAttribute("ads", ads);
 
 
 

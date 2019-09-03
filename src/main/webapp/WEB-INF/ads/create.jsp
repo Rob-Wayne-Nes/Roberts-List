@@ -12,9 +12,11 @@
     <h1>Post on my List</h1>
     <form action="/ads/create" method="post" enctype="multipart/form-data">
         <div class="form-group">
+            <label for="image">Upload an image</label>
+            <input type="file" name="image" id="image"/>
+        </div>
 
-            <input type="file" name="image">
-
+        <div class="form-group">
             <label for="category">Select category:</label>
             <select class="form-control" id="category" name="category" type="radio" style="width: 15%">
                 <option>for rent</option>
