@@ -3,6 +3,8 @@ package com.codeup.adlister.controllers;
 import com.codeup.adlister.dao.DaoFactory;
 import com.codeup.adlister.models.Ad;
 import com.codeup.adlister.models.User;
+import org.apache.commons.fileupload.FileUpload;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -10,12 +12,16 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.logging.Logger;
 
 @WebServlet(name = "controllers.CreateAdServlet", urlPatterns = "/ads/create")
 @MultipartConfig(fileSizeThreshold = 1024*1024*10, maxFileSize = 1024*1024*50, maxRequestSize = 1024*1024*100)
 public class CreateAdServlet extends HttpServlet {
-    private static final String SAVE_DIR = "WEB-INF/source/img";
+
+//    private final static Logger LOGGER = Logger.getLogger(FileUploadServlet.class.getCanonicalName());
+    private static final String SAVE_DIR = "source/img";
 
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -50,6 +56,16 @@ public class CreateAdServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         response.setContentType("text/html;charset=UTF-8");
 
+
+        // checks if the request actually contains upload file
+        if (!ServletFileUpload.isMultipartContent(request)) {
+            // if not, we stop here
+            PrintWriter writer = response.getWriter();
+            writer.println("Error: Form must has enctype=multipart/form-data.");
+            writer.flush();
+            return;
+        }
+
         User user = (User) request.getSession().getAttribute("user");
 
         String filename = "";
@@ -60,16 +76,22 @@ public class CreateAdServlet extends HttpServlet {
             image = "https://www.pexels.com/photo/unpaired-yellow-dr-martens-lace-up-boot-1159670/";
         } else {
             String appPath = request.getServletContext().getRealPath("");
+            System.out.println("hhhhhhhhhh" + appPath);
+
             String savePath = appPath + SAVE_DIR;
             Part part = request.getPart("image");
             File fileSaveDir = new File(savePath);
             if (!fileSaveDir.exists()) {
                 fileSaveDir.mkdir();
             }
+            System.out.println("THIS IS THE FILE DIR" + fileSaveDir);
+            System.out.println("THIS IS THE PART DIR" + part);
+            System.out.println("EXAMPLE" + extractFileName(part));
             filename = savePath + File.separator + extractFileName(part);
             image = SAVE_DIR + File.separator + extractFileName(part);
             part.write(filename);
-
+            System.out.println("File name" + filename);
+            System.out.println("Image" + image);
             Ad ad = new Ad(
                     user.getId(),
                     request.getParameter("title"),

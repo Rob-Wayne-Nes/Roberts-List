@@ -35,7 +35,7 @@ public class AdsIndexServlet extends HttpServlet {
 
         //**********************
 
-//        request.setAttribute("ads", DaoFactory.getAdsDao().all());
+        request.setAttribute("ads", DaoFactory.getAdsDao().all());
         List<Ad> ads = DaoFactory.getAdsDao().all();
         for(Ad ad: ads){
             String title = ad.getTitle();

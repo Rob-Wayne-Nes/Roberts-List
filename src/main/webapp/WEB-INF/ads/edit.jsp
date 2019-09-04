@@ -32,7 +32,6 @@
             <input type="text" name="title" id="title" class="form-control" value="${title}">
     </div>
 
-
      <div class="form-group">
         <%--todo form group is shitting itsself--%>
 
@@ -41,26 +40,11 @@
 
     </div>
 
-
         <input name="adId" value="${adId}" type="hidden">
-
-
 
         <input type="submit" class="btn btn-block btn-primary">
     </div>
 </form>
-
-    <%--***************--%>
-    <%--<input name="title" type="text" value="${title}">--%>
-        <%--<div class="form-group">--%>
-        <%--<label for="description" ">Description</label>--%>
-
-        <%--</textarea>--%>
-        <%--</div>--%>
-    <%--<input name="adId" value="${adId}" type="hidden">--%>
-    <%--<button name="delete" type="submit" value="1">Update</button>--%>
-    <%--</div>--%>
-<%--</form>--%>
 
 <%@ include file="/WEB-INF/partials/script.jsp"%>
     </body>

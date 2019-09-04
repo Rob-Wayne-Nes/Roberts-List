@@ -60,6 +60,8 @@ public class AdPageServlet extends HttpServlet {
             }
 
         }
+        request.setAttribute("ads", DaoFactory.getAdsDao().all());
+
 
         request.setAttribute("display",display);
         request.setAttribute("clase",clase);

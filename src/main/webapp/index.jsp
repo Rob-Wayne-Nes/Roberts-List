@@ -11,16 +11,14 @@
 
 <%--preloader--%>
 
-
-
 <div class="container-fluid">
-    <a href="WEB-INF/source/img/dreaming.jpeg"style=" background-image: url(WEB-INF/source/img/dreaming.jpeg);" > </a>
+    <a href="source/img/dreaming.jpeg"style=" background-image: url(/source/img/dreaming.jpeg);" > </a>
 </div>
 
 <%--visitor will be directed--%>
 <div class="container-fluid">
 
-    <h1 class="text-center mt-5" style="font-family: 'BioRhyme Expanded', serif;" id="entrance">Welcome to Robert's List!</h1>
+    <h1 class="text-center mt-5" style="font-family: 'BioRhyme Expanded', serif;" id="entrance">Welcome to the Ad's Lister!</h1>
 </div>
 
 
@@ -37,9 +35,6 @@
                         <p class="card-text head">${ad.description}</p>
                             <%--todo The add.category isn't apart of the ad dao. fix it.--%>
                         <p class="card-text head">${ad.category}</p>
-
-
-
                     </div>
                 </div>
 

@@ -48,6 +48,10 @@ public class RegisterServlet extends HttpServlet {
             || (! password.equals(passwordConfirmation));
 
         if (inputHasErrors) {
+            request.getSession().setAttribute("username", username);
+            request.getSession().setAttribute("email", email);
+            request.getSession().setAttribute("password", password);
+            request.getSession().setAttribute("confirm_password", passwordConfirmation);
             response.sendRedirect("/register");
             return;
         }

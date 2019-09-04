@@ -10,7 +10,7 @@
 
 <jsp:include page="/WEB-INF/partials/navbar.jsp" />
 <div class="container">
-    <h1 class="text-center">Welcome to Robert's List, ${sessionScope.user.username}</h1>
+    <h1 class="text-center">Welcome to the Ad's Lister, ${sessionScope.user.username}</h1>
 
 
     <div class="row mt-5">
